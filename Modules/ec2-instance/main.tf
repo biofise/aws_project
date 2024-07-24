@@ -1,4 +1,4 @@
-resource "aws_instance" "mongodb_instance" {
+resource "aws_instance" "mariadb_instance" {
   ami             = var.ami_id
   instance_type   = var.instance_type
   subnet_id       = var.subnet_id
@@ -10,7 +10,8 @@ resource "aws_instance" "mongodb_instance" {
     volume_size = var.root_volume_size
   }
 
+  associate_public_ip_address = true
   tags = {
-    Name = "MongoDB Instance"
+    Name = "Bastion Host"
   }
 }

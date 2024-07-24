@@ -1,11 +1,11 @@
-resource "aws_security_group" "mongodb_sg" {
-  name        = "mongodb-sg"
-  description = "GS pour les instances MongoDB"
+resource "aws_security_group" "mariadb_sg" {
+  name        = "mariadb-sg"
+  description = "GS pour les instances MariaDB"
   vpc_id      = var.network_vpc_id
 
   ingress {
-    from_port   = 27017
-    to_port     = 27017
+    from_port   = 3306
+    to_port     = 3306
     protocol    = "tcp"
     cidr_blocks = [var.private_subnet_cidr]
   }
@@ -25,6 +25,6 @@ resource "aws_security_group" "mongodb_sg" {
   }
 
   tags = {
-    Name = "Groupe de securite MongoDB"
+    Name = "Groupe de securite MariaDB"
   }
 }

@@ -26,11 +26,11 @@ module "network" {
   private_subnet_cidr = var.private_subnet_cidr
 }
 
-module "link_eip_to_ec2" {
- source = "../Modules/eip"
- aws_instance_id = module.ec2-instance.ec2_instance_id
- eip_allocation_id = module.network.eip_allocation_id 
-}
+#module "link_eip_to_ec2" {
+# source = "../Modules/eip"
+# aws_instance_id = module.ec2-instance.ec2_instance_id
+# eip_allocation_id = module.network.eip_allocation_id 
+#}
 
 module "ecs-cluster" {
   source = "../Modules/ecs-cluster"
@@ -61,7 +61,8 @@ module "ec2-instance" {
 
 module "efs" {
   source            = "../Modules/efs"
-  subnet_ids        = { "subnet1" = module.network.public_subnet_id, "subnet2" = module.network.private_subnet_id }
+  subnet_ids        = module.network.private_subnet_id	
+
   security_group_id = module.security-group.security_group_id
 }
 

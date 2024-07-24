@@ -1,6 +1,6 @@
 variable "subnet_ids" {
-  description = "List of subnet IDs where EFS mount targets will be created"
-  type        = map(string)
+  description = "Sous-reseau au doit etre le point de montage"
+  type        = string
 }
 
 variable "security_group_id" {

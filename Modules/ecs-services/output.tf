@@ -1,5 +1,5 @@
 output "ecs_task_definition_arn" {
-  value = aws_ecs_task_definition.mongodb_task.arn
+  value = aws_ecs_task_definition.mariadb_task.arn
 }
 
 variable "ecs_cluster_id" {

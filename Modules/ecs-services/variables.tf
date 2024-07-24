@@ -1,13 +1,13 @@
 variable "efs_file_system_id" {
-  description = "The ID of the EFS file system to be used with MongoDB"
+  description = "ID du montage EFS pour mariaDB"
 }
 
 variable "private_subnet_id" {
-  description = "The ID of the private subnet"
+  description = "ID du sous-reseaux privee"
   type        = string
 }
 
 variable "security_group_id" {
-  description = "The ID of the security group for the ECS service"
+  description = "ID du groupe de securite pour ECS"
   type        = string
 }
