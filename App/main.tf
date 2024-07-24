@@ -30,7 +30,6 @@ module "link_eip_to_ec2" {
  source = "../Modules/eip"
  aws_instance_id = module.ec2-instance.ec2_instance_id
  eip_allocation_id = module.network.eip_allocation_id 
-
 }
 
 module "ecs-cluster" {
