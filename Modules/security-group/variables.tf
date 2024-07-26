@@ -2,7 +2,7 @@ variable "network_vpc_id" {
   description = "ID du VPC"
 }
 
-variable "private_subnet_cidr" {
+variable "cidr" {
   description = "Bloc CIDR pour le sous-réseaux privé"
 }
 

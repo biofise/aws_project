@@ -7,8 +7,16 @@ resource "aws_security_group" "mariadb_sg" {
     from_port   = 3306
     to_port     = 3306
     protocol    = "tcp"
-    cidr_blocks = [var.private_subnet_cidr]
+    cidr_blocks = [var.cidr]
   }
+
+  ingress {
+    from_port   = 2049
+    to_port     = 2049
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
 
   ingress {
     from_port   = 22

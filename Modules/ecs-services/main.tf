@@ -4,11 +4,12 @@ resource "aws_ecs_task_definition" "mariadb_task" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = "256"
   memory                   = "512"
+  execution_role_arn       = var.execution_role_arn  
 
   container_definitions = jsonencode([
     {
-      name      = "mariadb"
-      image     = "mariadb:latest"
+      name      = "ma-mariadb"
+      image     = "842393425042.dkr.ecr.us-east-1.amazonaws.com/ma-mariadb:latest"
       cpu       = 256
       memory    = 512
       essential = true
@@ -18,10 +19,21 @@ resource "aws_ecs_task_definition" "mariadb_task" {
           hostPort      = 3306
         }
       ]
+
+      environment = [
+      {
+        name  = "MYSQL_ROOT_PASSWORD"
+        value = var.mysql_root_password
+      },
+      {
+        name  = "MYSQL_DATABASE"
+        value = var.mysql_database
+      }
+     ]
       mountPoints = [
         {
           sourceVolume  = "mariadb_data"
-          containerPath = "/var/lib/mysql"
+          containerPath = "/var/lib/mysql/"
           readOnly      = false
         }
       ]
@@ -44,11 +56,10 @@ resource "aws_ecs_service" "mariadb_service" {
   task_definition = aws_ecs_task_definition.mariadb_task.arn
   desired_count   = 1
   launch_type     = "FARGATE"
-
   network_configuration {
     subnets          = [var.private_subnet_id]
     security_groups  = [var.security_group_id]
-    assign_public_ip = true
+#    assign_public_ip = true
   }
   depends_on = [
     aws_ecs_task_definition.mariadb_task
